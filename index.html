@@ -104,7 +104,7 @@ footer{background:var(--navy);color:#9fb3c9;text-align:center;padding:20px;font-
  <div class="card"><h2>Fase 6 · Personas clave</h2><p class="ph">Solo cargos estratégicos.</p><div class="row2" id="people"></div></div>
  <div class="card"><h2>Fase 7 · Valoración estratégica</h2><p class="ph">La lógica de la propuesta.</p>
   <label>Problema principal</label>
-  <select id="f_problema"><option value="">—</option><option value="A">A · Falta de camas / presión de ocupación</option><option value="B">B · Estancias prolongadas de crónicos/frágiles</option><option value="C">C · Urgencias saturadas por repetidores</option><option value="D">D · Aseguradoras presionando coste o calidad</option><option value="E">E · Hospital pequeño sin músculo domiciliario</option></select>
+  <select id="f_problema"><option value="">—</option><option value="A">A · Falta de camas / presión de ocupación</option><option value="B">B · Estancias prolongadas de crónicos/frágiles</option><option value="C">C · Urgencias saturadas por repetidores</option><option value="D">D · Aseguradoras presionando costo o calidad</option><option value="E">E · Hospital pequeño sin músculo domiciliario</option></select>
   <div class="row2"><div><label>¿Quién paga?</label><select id="f_paga"><option value="">—</option><option value="hospital">Hospital</option><option value="aseguradora">Aseguradora</option><option value="paciente">Paciente / familia</option><option value="admin">Administración pública</option></select></div>
   <div><label>Tipo (posicionamiento)</label><select id="f_tipo"><option value="">—</option><option value="grande">Hospital grande</option><option value="mediano">Hospital mediano</option><option value="pequeno">Hospital pequeño</option><option value="privado">Privado con aseguradoras</option></select></div></div>
   <label>Fortalezas</label><textarea id="f_str"></textarea>
@@ -127,11 +127,11 @@ footer{background:var(--navy);color:#9fb3c9;text-align:center;padding:20px;font-
  <div class="card"><h2>Calculadora de valor</h2><p class="ph">Cargá los datos operativos. Los supuestos son editables; es una estimación, no una promesa contractual.</p>
   <div class="row2"><div><label>Altas complejas por mes</label><input type="number" id="b_altas" min="0" placeholder="ej. 60"></div><div><label>Días de alta que se pueden adelantar</label><input type="number" id="b_dias" min="0" value="4"></div></div>
   <div class="row2"><div><label>Reingresos a 30 días por mes</label><input type="number" id="b_reing" min="0" placeholder="ej. 40"></div><div><label>Reducción estimada de reingresos (%)</label><input type="number" id="b_red" min="0" max="100" value="25"></div></div>
-  <div class="row2"><div><label>Estancia media (días)</label><input type="number" id="b_est" min="0" value="7"></div><div><label>Coste por día de cama (€)</label><input type="number" id="b_coste" min="0" value="400"></div></div>
+  <div class="row2"><div><label>Estancia media (días)</label><input type="number" id="b_est" min="0" value="7"></div><div><label>Costo por día de cama ($)</label><input type="number" id="b_costo" min="0" value="400"></div></div>
   <p class="hint">Los valores por defecto son referenciales; ajustalos con los datos reales de la institución.</p>
  </div>
  <div>
-  <div class="stat big"><div class="n" id="b_total">€ 0</div><div class="l">Ahorro anual estimado</div></div>
+  <div class="stat big"><div class="n" id="b_total">$ 0</div><div class="l">Ahorro anual estimado</div></div>
   <div class="stat"><div class="n" id="b_camas">0</div><div class="l">Camas equivalentes liberadas / mes</div></div>
   <div class="stat"><div class="n" id="b_diaslib">0</div><div class="l">Días de estancia liberados / mes</div></div>
   <div class="stat"><div class="n" id="b_revit">0</div><div class="l">Reingresos evitados / mes</div></div>
@@ -165,8 +165,8 @@ const PEOPLE=["Gerente","Director Médico","Director Asistencial","Responsable d
 const PROP={A:{t:"Liberación de capacidad hospitalaria",m:"Hospitalización domiciliaria, post-alta compleja y continuidad 30-60-90."},B:{t:"Unidad de continuidad para el paciente complejo",m:"Seguimiento domiciliario médico-enfermero, reducción de reingresos y trazabilidad."},C:{t:"Gestión de hiperfrecuentadores",m:"Estratificación, seguimiento anticipatorio y respuesta domiciliaria."},D:{t:"Solución para cartera aseguradora",m:"Continuidad, medición, informes y reducción de eventos evitables."},E:{t:"Unidad domiciliaria externalizada",m:"Humana como capacidad clínica flexible, sin inversión estructural."}};
 const PAGA={hospital:"Argumento económico: reducción de estancia media, liberación de camas y continuidad post-alta.",aseguradora:"Argumento económico: menos ingresos y urgencias evitables, menos días hospitalarios y mayor satisfacción.",paciente:"Argumento de valor: dirección médica en casa, seguridad clínica y continuidad.",admin:"Argumento de sistema: descarga asistencial, cronicidad, ruralidad y continuidad sociosanitaria."};
 const TIPO={grande:"Posicionar a Humana como complemento especializado: paciente complejo, post-alta y crónico frágil.",mediano:"Posicionar a Humana como extensión asistencial externalizada.",pequeno:"Posicionar a Humana como una capacidad que el hospital no puede construir solo.",privado:"Posicionar a Humana orientada a eficiencia, cartera y permanencia del paciente."};
-const DISC={A:["¿Cuál es su estancia media y cuántas altas se retrasan por falta de soporte domiciliario?","¿Qué porcentaje de camas está ocupado por pacientes que ya podrían estar en casa con seguimiento?","¿Cómo miden hoy la presión de camas y su impacto?"],B:["¿Qué grupo de pacientes crónicos complejos concentra la mayor parte de los reingresos?","¿Tienen hoy una unidad que siga a esos pacientes tras el alta?","¿Cómo trazan la evolución del paciente entre un ingreso y el siguiente?"],C:["¿Qué porcentaje de sus urgencias son pacientes repetidores?","¿Identifican a los hiperfrecuentadores y hacen seguimiento anticipatorio?","¿Qué ocurre con esos pacientes entre una visita y otra?"],D:["¿Qué les está pidiendo la aseguradora: coste, calidad o ambos?","¿Cómo miden hoy los eventos evitables de esa cartera?","¿Disponen de informes de continuidad para la aseguradora?"],E:["¿Qué capacidades domiciliarias tienen hoy propias?","¿Cuánto les costaría montar una unidad de HaD desde cero?","¿Valorarían una capacidad flexible sin inversión estructural?"]};
-const OBJ=[["Ya tenemos hospitalización a domicilio.","Perfecto: Humana no la reemplaza, la potencia con dirección médica y continuidad medible donde hoy no llega."],["Esto es un coste adicional.","No proponemos gastar más: proponemos que cada recurso que ya financian rinda más. La eficiencia aparece como consecuencia."],["No tenemos presupuesto ahora.","Empecemos por un programa acotado (post-alta o una cartera aseguradora) y medimos el impacto antes de escalar."],["¿Cómo sé que funciona?","Medimos todo desde el día uno: reingresos, urgencias evitables, estancia y funcionalidad. Los indicadores van en la propuesta."],["Ya trabajamos con otro proveedor.","No competimos como un proveedor más: aportamos una capacidad de gobierno clínico que coordina lo que ya tienen."]];
+const DISC={A:["¿Cuál es su estancia media y cuántas altas se retrasan por falta de soporte domiciliario?","¿Qué porcentaje de camas está ocupado por pacientes que ya podrían estar en casa con seguimiento?","¿Cómo miden hoy la presión de camas y su impacto?"],B:["¿Qué grupo de pacientes crónicos complejos concentra la mayor parte de los reingresos?","¿Tienen hoy una unidad que siga a esos pacientes tras el alta?","¿Cómo trazan la evolución del paciente entre un ingreso y el siguiente?"],C:["¿Qué porcentaje de sus urgencias son pacientes repetidores?","¿Identifican a los hiperfrecuentadores y hacen seguimiento anticipatorio?","¿Qué ocurre con esos pacientes entre una visita y otra?"],D:["¿Qué les está pidiendo la aseguradora: costo, calidad o ambos?","¿Cómo miden hoy los eventos evitables de esa cartera?","¿Disponen de informes de continuidad para la aseguradora?"],E:["¿Qué capacidades domiciliarias tienen hoy propias?","¿Cuánto les costaría montar una unidad de HaD desde cero?","¿Valorarían una capacidad flexible sin inversión estructural?"]};
+const OBJ=[["Ya tenemos hospitalización a domicilio.","Perfecto: Humana no la reemplaza, la potencia con dirección médica y continuidad medible donde hoy no llega."],["Esto es un costo adicional.","No proponemos gastar más: proponemos que cada recurso que ya financian rinda más. La eficiencia aparece como consecuencia."],["No tenemos presupuesto ahora.","Empecemos por un programa acotado (post-alta o una cartera aseguradora) y medimos el impacto antes de escalar."],["¿Cómo sé que funciona?","Medimos todo desde el día uno: reingresos, urgencias evitables, estancia y funcionalidad. Los indicadores van en la propuesta."],["Ya trabajamos con otro proveedor.","No competimos como un proveedor más: aportamos una capacidad de gobierno clínico que coordina lo que ya tienen."]];
 
 document.getElementById('caps').innerHTML=CAPS.map((c,i)=>`<label class="chk"><input type="checkbox" id="cap_${i}">${c}</label>`).join('');
 document.getElementById('needs').innerHTML=NEEDS.map(([id,l])=>`<label class="chk"><input type="checkbox" id="${id}">${l}</label>`).join('');
@@ -180,7 +180,7 @@ function save(){const o={};allInputs().forEach(el=>o[el.id]=el.type==='checkbox'
 function load(){const o=STORE.get();allInputs().forEach(el=>{if(o[el.id]!=null){if(el.type==='checkbox')el.checked=o[el.id];else el.value=o[el.id];}});}
 const val=id=>{const el=document.getElementById(id);return el?(el.type==='checkbox'?el.checked:el.value):'';}
 const num=id=>parseFloat(val(id))||0;
-const eur=n=>'€ '+Math.round(n).toLocaleString('es-ES');
+const eur=n=>'$ '+Math.round(n).toLocaleString('es-AR');
 function showTab(i){[0,1,2].forEach(k=>{document.getElementById('s'+k).classList.toggle('on',k===i);document.querySelectorAll('.tab')[k].classList.toggle('on',k===i);});window.scrollTo(0,0);}
 
 function compute(){
@@ -226,17 +226,17 @@ Saludos cordiales,
  bc(); save();
 }
 function bc(){
- const altas=num('b_altas'),dias=num('b_dias'),reing=num('b_reing'),red=num('b_red')/100,est=num('b_est'),coste=num('b_coste');
+ const altas=num('b_altas'),dias=num('b_dias'),reing=num('b_reing'),red=num('b_red')/100,est=num('b_est'),costo=num('b_costo');
  const diaslib=altas*dias; const camas=diaslib/30; const revit=reing*red;
- const ahEst=diaslib*12*coste; const ahReing=revit*12*est*coste; const total=ahEst+ahReing;
- document.getElementById('b_diaslib').textContent=Math.round(diaslib).toLocaleString('es-ES');
+ const ahEst=diaslib*12*costo; const ahReing=revit*12*est*costo; const total=ahEst+ahReing;
+ document.getElementById('b_diaslib').textContent=Math.round(diaslib).toLocaleString('es-AR');
  document.getElementById('b_camas').textContent=camas.toFixed(1);
  document.getElementById('b_revit').textContent=revit.toFixed(0);
  document.getElementById('b_total').textContent=eur(total);
  document.getElementById('b_break').textContent=total>0?`Desglose anual: por estancia liberada ${eur(ahEst)} + por reingresos evitados ${eur(ahReing)}. Estimación con supuestos editables.`:'Cargá los datos operativos para estimar el impacto.';
 }
 function copyEmail(){const t=document.getElementById('pb_email').textContent;navigator.clipboard&&navigator.clipboard.writeText(t);}
-function reset(){if(confirm('¿Vaciar la ficha?')){try{localStorage.removeItem('ha_estrat')}catch(e){}allInputs().forEach(el=>{if(el.type==='checkbox')el.checked=false;else if(['b_dias','b_red','b_est','b_coste'].includes(el.id))return;else el.value='';});compute();}}
+function reset(){if(confirm('¿Vaciar la ficha?')){try{localStorage.removeItem('ha_estrat')}catch(e){}allInputs().forEach(el=>{if(el.type==='checkbox')el.checked=false;else if(['b_dias','b_red','b_est','b_costo'].includes(el.id))return;else el.value='';});compute();}}
 document.addEventListener('input',compute);document.addEventListener('change',compute);
 load();compute();
 </script>
